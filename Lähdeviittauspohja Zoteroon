@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never" default-locale="fi-FI">
+  <info>
+    <title>TAMK - -Elsevier - Harvard - Suomi</title>
+    <id>http://www.zotero.org/styles/tamk-university-of-applied-sciences-suomi-harvard</id>
+    <link href="http://www.zotero.org/styles/metropolia-university-of-applied-sciences-harvard" rel="self"/>
+    <link href="http://www.zotero.org/styles/university-of-helsinki-faculty-of-theology" rel="template"/>
+    <author>
+      <name>Minna Purkunen</name>
+      <email>minna.purkunen@tamk.fi</email>
+    </author>
+    <author>
+      <name>Kati Kekälinen</name>
+      <email>kati.kekalinen@tamk.fi</email>
+    </author>
+    <category field="science"/>
+    <updated>2022-06-11T10:41:19+00:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+  <locale xml:lang="fi">
+    <terms>
+      <term name="accessed">viitattu</term>
+      <term name="et-al">ym.</term>
+      <term name="no date" form="short">n.d.</term>
+    </terms>
+  </locale>
+  <macro name="container">
+    <choose>
+      <if type="chapter paper-conference" match="any">
+        <group delimiter=" ">
+          <choose>
+            <if variable="author">
+              <names variable="editor">
+                <name prefix=" " and="symbol" initialize="false" initialize-with=" "/>
+              </names>
+              <names variable="container-author" prefix=" ">
+                <name and="symbol" initialize="false" initialize-with=". "/>
+              </names>
+            </if>
+          </choose>
+          <choose>
+            <if variable="author editor" match="any">
+              <names variable="translator">
+                <name prefix=" " and="symbol" initialize="false" initialize-with=". "/>
+              </names>
+            </if>
+          </choose>
+          <text term="editor" form="short" prefix="(" suffix=")"/>
+        </group>
+      </if>
+    </choose>
+  </macro>
+  <macro name="author">
+    <names variable="author">
+      <name delimiter="," prefix=" " suffix="" delimiter-precedes-last="never" et-al-use-last="true" and="symbol" initialize-with="." name-as-sort-order="all"/>
+      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
+      <substitute>
+        <text macro="title"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="author-short">
+    <names variable="author">
+      <name form="short" delimiter=" " and="symbol" delimiter-precedes-last="always" et-al-min="5" et-al-use-first="1" et-al-subsequent-min="1" et-al-subsequent-use-first="1" initialize-with=". " sort-separator=",  "/>
+      <substitute>
+        <choose>
+          <if type="bill book graphic legal_case legislation motion_picture report song regulation" match="any">
+            <text variable="title" form="short" font-style="normal"/>
+          </if>
+          <else>
+            <text variable="title" form="short" quotes="true"/>
+          </else>
+        </choose>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="access">
+    <choose>
+      <if variable="DOI">
+        <text variable="DOI" prefix="https://doi.org/" suffix="."/>
+        <text variable="URL" prefix=" "/>
+      </if>
+      <else-if type="webpage post-weblog" match="any">
+        <group delimiter=" ">
+          <group prefix=" " suffix=" ">
+            <text term="accessed" suffix=" " text-case="capitalize-first"/>
+            <date variable="accessed">
+              <date-part name="day" suffix="."/>
+              <date-part name="month" form="numeric" suffix="."/>
+              <date-part name="year" form="long" suffix=". "/>
+            </date>
+          </group>
+        </group>
+        <text variable="URL"/>
+      </else-if>
+    </choose>
+  </macro>
+  <macro name="title">
+    <choose>
+      <if type="report thesis" match="any">
+        <text variable="title"/>
+        <group prefix=" (" suffix=")" delimiter=". ">
+          <text variable="genre"/>
+          <text variable="number" prefix="No. "/>
+        </group>
+      </if>
+      <else-if type="bill book graphic legal_case legislation motion_picture report song speech" match="any">
+        <text variable="title"/>
+        <text macro="edition" prefix=", "/>
+      </else-if>
+      <else-if type="webpage">
+        <text variable="title"/>
+        <text value="verkkosivu" prefix=". " suffix="." text-case="capitalize-first"/>
+      </else-if>
+      <else-if type="article-journal article-magazine article-newspaper">
+        <text variable="title" suffix="."/>
+        <text term="accessed" prefix=". " suffix=" " text-case="capitalize-first"/>
+        <date variable="accessed">
+          <date-part name="day" suffix="."/>
+          <date-part name="month" form="numeric" suffix="."/>
+          <date-part name="year" form="long" suffix=". "/>
+        </date>
+        <text variable="URL"/>
+      </else-if>
+      <else>
+        <text variable="title"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="publisher">
+    <group delimiter=", ">
+      <text variable="publisher"/>
+      <text variable="publisher-place"/>
+    </group>
+  </macro>
+  <macro name="event">
+    <choose>
+      <if variable="event">
+        <text value="esitetty tapahtumassa" text-case="capitalize-first" suffix=". "/>
+        <text variable="event"/>
+      </if>
+    </choose>
+  </macro>
+  <macro name="issued">
+    <choose>
+      <if variable="issued">
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+      </if>
+      <else>
+        <text term="no date" form="short"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="edition">
+    <group delimiter=" ">
+      <choose>
+        <if is-numeric="edition">
+          <number variable="edition" form="ordinal"/>
+        </if>
+        <else>
+          <text variable="edition" suffix="."/>
+        </else>
+      </choose>
+      <text value="painos"/>
+    </group>
+  </macro>
+  <macro name="locators">
+    <choose>
+      <if type="article-journal article-magazine article-newspaper" match="any">
+        <group delimiter=", " prefix=" ">
+          <group>
+            <text variable="container-title" suffix=" "/>
+            <text variable="volume"/>
+            <text variable="issue" prefix="(" suffix=")"/>
+          </group>
+          <text variable="page"/>
+        </group>
+      </if>
+      <else-if type="chapter paper-conference" match="any">
+        <group delimiter=", " prefix=". ">
+          <text macro="event"/>
+          <text macro="publisher"/>
+          <group>
+            <label variable="page" form="short" suffix=" "/>
+            <text variable="page"/>
+          </group>
+        </group>
+      </else-if>
+      <else-if type="patent">
+        <text variable="number" prefix=". "/>
+      </else-if>
+    </choose>
+  </macro>
+  <citation et-al-subsequent-min="5" et-al-use-first="1" disambiguate-add-givenname="true" disambiguate-add-year-suffix="true" collapse="year" cite-group-delimiter=", ">
+    <sort>
+      <key macro="author"/>
+      <key macro="issued" sort="descending"/>
+    </sort>
+    <layout prefix="(" suffix=")" delimiter="; ">
+      <group delimiter=" ">
+        <text macro="author-short"/>
+        <text macro="issued"/>
+        <group delimiter=" ">
+          <text variable="locator"/>
+        </group>
+      </group>
+    </layout>
+  </citation>
+  <bibliography entry-spacing="0" line-spacing="1">
+    <sort>
+      <key macro="author"/>
+      <key macro="issued" sort="descending"/>
+    </sort>
+    <layout>
+      <group suffix=" ">
+        <text macro="author" suffix="."/>
+        <text macro="issued" prefix=" "/>
+        <group>
+          <text macro="title" prefix=". " suffix="."/>
+          <text macro="container"/>
+          <text macro="locators"/>
+          <text macro="access" text-case="capitalize-first" prefix=". "/>
+        </group>
+      </group>
+    </layout>
+  </bibliography>
+</style>
